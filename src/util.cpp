@@ -1,32 +1,14 @@
 #include "util.h"
 #include "answers.h"
-#include <algorithm>
 #include <iostream>
-#include <sstream>
 #include <stdexcept>
 
 // NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables)
-size_t aoc::part1{0};
-size_t aoc::part2{0};
-static uint8_t      g_day{0}; // NOLINT(*-anonymous-namespace)
+size_t         aoc::part1{0};
+size_t         aoc::part2{0};
+static uint8_t g_day{0}; // NOLINT(*-anonymous-namespace)
 
 // NOLINTEND(cppcoreguidelines-avoid-non-const-global-variables)
-
-namespace {
-size_t get_part_1();
-size_t get_part_2();
-void   print_part(uint8_t part, size_t num, size_t expected);
-} // namespace
-
-int main() {
-    aoc::run();
-    print_part(1, aoc::part1, get_part_1());
-    print_part(2, aoc::part2, get_part_2());
-}
-
-void aoc::print(const std::string& str) {
-    std::println(std::cout, "{}", str);
-}
 
 std::string aoc::file::day_file(uint8_t day) {
     g_day = day;
@@ -45,65 +27,6 @@ std::filesystem::path aoc::file::day_stream(const std::source_location& loc) {
     const uint8_t     day =
         string::char_to_uint(fname.at(fname.size() - 6), fname.at(fname.size() - 5));
     return {day_path(day)};
-}
-
-bool aoc::string::is_numeric(const char cha) {
-    return (cha >= '0' && cha <= '9');
-}
-
-bool aoc::string::is_numeric(const std::string& str) {
-    return std::ranges::all_of(str, [](const char cha) {
-        return aoc::string::is_numeric(cha);
-    });
-}
-
-size_t aoc::math::max(size_t aval, size_t bval) {
-    return std::max(aval, bval);
-}
-
-size_t aoc::math::min(size_t aval, size_t bval) {
-    return std::min(aval, bval);
-}
-
-std::string aoc::string::slurp(std::ifstream& instr) {
-    std::ostringstream sstr{};
-    sstr << instr.rdbuf();
-    return sstr.str();
-}
-
-uint8_t aoc::string::char_to_uint(char cha) {
-    return static_cast<uint8_t>(cha) - static_cast<uint8_t>('0');
-}
-
-uint8_t aoc::string::char_to_uint(char cha_1, char cha_2) {
-    constexpr auto BASE_10 = 10;
-    return (BASE_10 * char_to_uint(cha_1)) + char_to_uint(cha_2);
-}
-
-uint8_t aoc::string::str_to_uint(const std::string_view chars) {
-    uint8_t val = 0;
-    for (const char cha: chars) {
-        if (aoc::string::is_numeric(cha)) {
-            val *= 10;
-            val += aoc::string::char_to_uint(cha);
-        } else {
-            break;
-        }
-    }
-    return val;
-}
-
-int64_t aoc::string::str_to_long(const std::string_view chars) {
-    int64_t val = 0;
-    for (const char cha: chars) {
-        if (aoc::string::is_numeric(cha)) {
-            val *= 10;
-            val += aoc::string::char_to_uint(cha);
-        } else {
-            break;
-        }
-    }
-    return val;
 }
 
 namespace {
@@ -178,10 +101,16 @@ void print_part(uint8_t part, size_t num, size_t expected) {
         aoc::print("Part {}: No stored answer, got {}", part, num);
     } else {
         if (num == expected) {
-            aoc::print("Part {}: Correct", part);
+            aoc::print("Part {}: Correct with {}", part, num);
         } else {
-            aoc::print("Part {}: Incorrect got {}, expected {}", part, num, expected);
+            aoc::print("Part {}: Incorrect\ngot      {}\nexpected {}", part, num, expected);
         }
     }
 }
 } // namespace
+
+int main() {
+    aoc::run();
+    print_part(1, aoc::part1, get_part_1());
+    print_part(2, aoc::part2, get_part_2());
+}

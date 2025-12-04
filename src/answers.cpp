@@ -2,23 +2,23 @@
 
 namespace day01 {
 const size_t part1 = 992;
-const size_t part2 = 0;
+const size_t part2 = 6133;
 const size_t test1 = 3;
 const size_t test2 = 6;
 } // namespace day01
 
 namespace day02 {
-const size_t part1 = 0;
-const size_t part2 = 0;
-const size_t test1 = 0;
-const size_t test2 = 0;
+const size_t part1 = 23560874270;
+const size_t part2 = 44143124633;
+const size_t test1 = 1227775554;
+const size_t test2 = 4174379265;
 } // namespace day02
 
 namespace day03 {
-const size_t part1 = 0;
+const size_t part1 = 17085;
 const size_t part2 = 0;
-const size_t test1 = 0;
-const size_t test2 = 0;
+const size_t test1 = 357;
+const size_t test2 = 3121910778619;
 } // namespace day03
 
 namespace day04 {
