@@ -91,8 +91,8 @@ constexpr std::string format(const std::vector<T> vec) {
     return buf;
 }
 
-constexpr bool vec_same(const std::ranges::range auto&& vec) {
-    using T = std::ranges::range_value_t<decltype(vec)>;
+template<typename T>
+constexpr bool vec_same(const std::vector<T>& vec) {
     check(vec.size() > 1, "vec_same only takes vectors of length greater than one");
     const T& comp = vec[0];
     for (const T& item: vec) {
@@ -161,6 +161,29 @@ constexpr T toint(std::string_view chars) {
         }
     }
     return val;
+}
+
+constexpr size_t max_digit(std::string_view chars) {
+    using std::views::iota;
+    using std::views::zip;
+    char   m_d{'0'};
+    size_t m_i{0};
+    for (const auto [idx, cha]: zip(iota(0U), chars)) {
+        if (is_numeric(cha) && (cha > m_d)) {
+            m_d = cha;
+            m_i = idx;
+        }
+    }
+    return m_i;
+}
+
+using str_pair = std::pair<std::string_view, std::string_view>;
+
+constexpr str_pair split(std::string_view str, char delim) {
+    const auto* const start{str.cbegin()};
+    const auto* const found{std::find(start, str.cend(), delim)};
+    const auto        idx{static_cast<size_t>(std::distance(start, found))};
+    return {str.substr(0U, idx), str.substr(idx + 1, str.length() - idx)};
 }
 
 } // namespace string

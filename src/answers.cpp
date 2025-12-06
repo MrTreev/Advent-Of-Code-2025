@@ -16,29 +16,29 @@ const size_t test2 = 4174379265;
 
 namespace day03 {
 const size_t part1 = 17085;
-const size_t part2 = 0;
+const size_t part2 = 169408143086082;
 const size_t test1 = 357;
 const size_t test2 = 3121910778619;
 } // namespace day03
 
 namespace day04 {
-const size_t part1 = 0;
-const size_t part2 = 0;
-const size_t test1 = 0;
-const size_t test2 = 0;
+const size_t part1 = 1564;
+const size_t part2 = 9401;
+const size_t test1 = 13;
+const size_t test2 = 43;
 } // namespace day04
 
 namespace day05 {
-const size_t part1 = 0;
-const size_t part2 = 0;
-const size_t test1 = 0;
-const size_t test2 = 0;
+const size_t part1 = 674;
+const size_t part2 = 352509891817881;
+const size_t test1 = 3;
+const size_t test2 = 14;
 } // namespace day05
 
 namespace day06 {
 const size_t part1 = 0;
 const size_t part2 = 0;
-const size_t test1 = 0;
+const size_t test1 = 4277556;
 const size_t test2 = 0;
 } // namespace day06
 

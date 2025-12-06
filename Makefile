@@ -39,7 +39,7 @@ TSTFLAGS    +=  -UNDEBUG
 OPTFLAGS    +=  -O3
 OPTFLAGS    +=  -DNDEBUG
 
-DAYS	=	01
+DAYS	=	01 02 03 04 05 06
 .PHONY: all
 all: $(foreach day,${DAYS},${PATH_BIN}/day${day}) $(foreach day,${DAYS},${PATH_BIN}/test${day})
 
@@ -70,3 +70,7 @@ run%: ${PATH_BIN}/day% ${PATH_DAT}/day%.txt
 .PHONY: $(BIN_FILES:${PATH_BIN}/%=test%)
 test%: ${PATH_BIN}/test% ${PATH_DAT}/test%.txt
 	LD_LIBRARY_PATH=${PATH_LIB} $<
+
+.PHONY: $(BIN_FILES:${PATH_BIN}/%=test%)
+debug%: ${PATH_BIN}/test% ${PATH_DAT}/test%.txt
+	LD_LIBRARY_PATH=${PATH_LIB} gdb --readnow --tui $<
