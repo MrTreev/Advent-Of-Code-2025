@@ -122,6 +122,16 @@ namespace file {
 std::string           day_file(uint8_t day);
 std::filesystem::path day_path(uint8_t day);
 std::filesystem::path day_stream(const std::source_location& loc = std::source_location::current());
+
+constexpr std::vector<std::string> lines(std::ifstream daystr) {
+    std::vector<std::string> lines;
+    std::string              line;
+    while (std::getline(daystr, line)) {
+        lines.push_back(line + " ");
+    }
+    return lines;
+}
+
 } // namespace file
 
 namespace string {

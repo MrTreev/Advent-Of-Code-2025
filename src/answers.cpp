@@ -36,10 +36,10 @@ const size_t test2 = 14;
 } // namespace day05
 
 namespace day06 {
-const size_t part1 = 0;
-const size_t part2 = 0;
+const size_t part1 = 6343365546996;
+const size_t part2 = 11136895955912;
 const size_t test1 = 4277556;
-const size_t test2 = 0;
+const size_t test2 = 3263827;
 } // namespace day06
 
 namespace day07 {
