@@ -118,6 +118,57 @@ constexpr auto max_in(const std::vector<T>& vec) {
     return std::make_pair(m_i, m_d);
 }
 
+template<typename T>
+constexpr bool invec(const std::vector<T>& vec, const T& val) {
+    return std::ranges::any_of(vec, [val](const T& v) {
+        return (v == val);
+    });
+}
+
+template<typename T>
+constexpr bool invec(const std::vector<T>& vec, const T& val1, const T& val2) {
+    return std::ranges::any_of(vec, [val1, val2](const T& v) {
+        return (v == val1) || (v == val2);
+    });
+}
+
+constexpr size_t find_idx(const std::ranges::range auto& vec, auto item) {
+    return static_cast<size_t>(
+        std::distance(std::ranges::begin(vec), std::ranges::find(vec, item))
+    );
+}
+
+template<typename T>
+void swap_idxs(std::vector<T>& vec, size_t idx, size_t jdx) {
+    const T tmp = vec[idx];
+    vec[idx]    = vec[jdx];
+    vec[jdx]    = tmp;
+}
+
+template<typename T, typename U>
+void quicksort_pairs(std::vector<std::pair<T, U>>& vec, size_t beg_idx, size_t end_idx) {
+    using std::views::iota;
+    if (beg_idx < end_idx) {
+        const T pivot = vec[end_idx].first;
+        size_t  idx   = beg_idx - 1;
+        for (const size_t jdx: iota(beg_idx, end_idx)) {
+            if (vec[jdx].first <= pivot) {
+                idx += 1;
+                swap_idxs(vec, idx, jdx);
+            }
+        }
+        swap_idxs(vec, idx + 1, end_idx);
+        const size_t part{idx + 1};
+        if (part > 1) quicksort_pairs(vec, beg_idx, part - 1);
+        quicksort_pairs(vec, part + 1, end_idx);
+    }
+}
+
+template<typename T, typename U>
+void quicksort_pairs(std::vector<std::pair<T, U>>& vec) {
+    return quicksort_pairs(vec, 0U, static_cast<size_t>(vec.size() - 1));
+}
+
 namespace file {
 std::string           day_file(uint8_t day);
 std::filesystem::path day_path(uint8_t day);

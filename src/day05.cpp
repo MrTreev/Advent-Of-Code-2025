@@ -5,7 +5,6 @@
 namespace {
 using sizpair = std::pair<size_t, size_t>;
 using vecpair = std::vector<sizpair>;
-using std::views::iota;
 
 std::pair<vecpair, std::vector<size_t>> parse(std::ifstream daystr) {
     std::string         line;
@@ -32,30 +31,6 @@ bool check_ranges(size_t item, const vecpair& ranges) {
     return false;
 }
 
-void swap(vecpair& vec, size_t idx, size_t jdx) {
-    const sizpair tmp = vec[idx];
-    vec[idx]          = vec[jdx];
-    vec[jdx]          = tmp;
-}
-
-//NOLINTNEXTLINE(*-no-recursion)
-void quicksort(vecpair& vec, size_t beg_idx, size_t end_idx) {
-    if (beg_idx < end_idx) {
-        const size_t pivot = vec[end_idx].first;
-        size_t       idx   = beg_idx - 1;
-        for (const size_t jdx: iota(beg_idx, end_idx)) {
-            if (vec[jdx].first <= pivot) {
-                idx += 1;
-                swap(vec, idx, jdx);
-            }
-        }
-        swap(vec, idx + 1, end_idx);
-        const size_t part{idx + 1};
-        if (part > 1) quicksort(vec, beg_idx, part - 1);
-        quicksort(vec, part + 1, end_idx);
-    }
-}
-
 } // namespace
 
 void aoc::run() {
@@ -66,7 +41,7 @@ void aoc::run() {
         }
     }
     vecpair cleanranges{};
-    quicksort(ranges, 0, ranges.size() - 1);
+    quicksort_pairs(ranges);
     for (const auto [r_beg, r_end]: ranges) {
         if (cleanranges.empty()) {
             cleanranges.emplace_back(r_beg, r_end);
